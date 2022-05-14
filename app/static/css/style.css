@@ -6,3 +6,18 @@ body{
     margin: 0;
     padding: 0;
 }
+
+/* NAV */
+.nav-link{
+    color: #000;
+}
+.nav-link:hover{
+    color: #c1a57b;
+}
+.problogger{
+    text-decoration: none;
+    color: #000;
+}
+.problogger:hover{
+    color: #000;
+}
