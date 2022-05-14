@@ -14,10 +14,45 @@ body{
 .nav-link:hover{
     color: #c1a57b;
 }
+.nav-link:active{
+    color: #c1a57b;
+}
 .problogger{
     text-decoration: none;
     color: #000;
 }
 .problogger:hover{
+    color: #000;
+}
+
+
+
+
+/* FOOTER */
+hr{
+    margin: auto;
+}
+.fa-twitter, .fa-linkedin, .fa-youtube-play{
+    color: #c1a57b;
+    background-color: white;
+}
+.fa-heart{
+    color: #c1a57b;
+}
+
+
+
+/* QUOTES  */
+.card1{
+    background-color:#c1a57b;
+    border-radius:15px;
+    height:300px;
+    color: #f0f0f0;
+}
+.text1{
+    color:#fff;
+    font-weight:700;
+}
+.detail{
     color: #000;
 }

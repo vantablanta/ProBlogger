@@ -6,6 +6,7 @@ load_dotenv()
 
 class Config:
     """"""
+    
 
 class ProdConfig(Config):
     """"""
