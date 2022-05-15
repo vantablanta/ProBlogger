@@ -11,7 +11,7 @@ from ..models import User
 def signup():
     form = SignupForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, secure_password=form.password.data)
+        user = User(username=form.username.data, email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('auth_blueprint.login')) 
@@ -22,10 +22,10 @@ def signup():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email = form.email.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user is not None:
             login_user(user, form.remember.data)
-            return redirect(request.args.get('next') or url_for('main_blueprint.pitches'))
+            return redirect(request.args.get('next') or url_for('main_blueprint.home'))
         flash('Invalid username or Password', "danger")
                 
     return render_template('auth/login.html', form = form)

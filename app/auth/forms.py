@@ -7,9 +7,8 @@ class SignupForm(FlaskForm):
     username = StringField("Enter username", validators=[DataRequired()])
     email = EmailField("Enter Email", validators=[DataRequired()])
     role = SelectField('Would you like to signup as a writer?', choices=['Yes', 'No'], validators=[DataRequired()])
-    password = PasswordField('Enter password', validators=[DataRequired(), EqualTo('confirm_password', 
-         message='Passwords must match')])
-    confirm_password = PasswordField("Confirm Password", validators=[DataRequired()] )
+    password = PasswordField('Enter password', validators=[DataRequired()])
+    confirm_password = PasswordField("Confirm Password",validators=[DataRequired(), EqualTo('password') ])
     submit = SubmitField("Signup")
 
 
@@ -24,7 +23,6 @@ class SignupForm(FlaskForm):
 
 class LoginForm(FlaskForm):
      email = EmailField("Enter email", validators=[DataRequired()])
-     password = PasswordField('Enter password', validators=[DataRequired(), EqualTo('confirm_password', 
-         message='Passwords must match')])
+     password = PasswordField('Enter password', validators=[DataRequired()])
      remember = BooleanField('Remember me')
      submit = SubmitField("Login")
