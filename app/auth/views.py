@@ -10,15 +10,11 @@ from ..models import User
 @auth_blueprint.route('/signup', methods=['POST','GET'])
 def signup():
     form = SignupForm()
-    if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        user=User(username, email, password)
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data, secure_password=form.password.data)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('auth_blueprint.login'))
-        
+        return redirect(url_for('auth_blueprint.login')) 
     return render_template('auth/signup.html', form = form)
 
 
@@ -33,5 +29,16 @@ def login():
         flash('Invalid username or Password', "danger")
                 
     return render_template('auth/login.html', form = form)
+
+@auth_blueprint.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("main_blueprint.home"))
+
+
+@auth_blueprint.route("/profile")
+def profile():
+    return render_template('profile.html')
 
 
