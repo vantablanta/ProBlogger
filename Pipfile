@@ -8,6 +8,10 @@ flask = "*"
 python-dotenv = "*"
 requests = "*"
 flask-wtf = {extras = ["email"], version = "*"}
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+psycopg2 = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
