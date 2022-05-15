@@ -51,3 +51,12 @@ hr{
 .detail{
     color: #000;
 }
+
+
+/* SIGNUP */
+.btn{
+    background-color: #c1a57b;
+}
+.btn:hover{
+    color: #f0f0f0;
+}
