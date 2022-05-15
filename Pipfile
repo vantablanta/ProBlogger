@@ -12,6 +12,7 @@ flask-sqlalchemy = "*"
 flask-migrate = "*"
 psycopg2 = "*"
 psycopg2-binary = "*"
+flask-login = "*"
 
 [dev-packages]
 
