@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     secure_password = db.Column(db.String, nullable=False)
     blog_id=db.relationship('Blogs', backref='user')
+    role=db.relationship('Roles', backref='user')
 
     @property
     def password(self):
@@ -27,6 +28,12 @@ class User(UserMixin, db.Model):
     
     def __repr__(self):
         return f"User('{self.name}')"
+
+class Roles(db.Model):
+    __tablename__ = 'role'
+    id = db.Column(db.Integer, primary_key=True)
+    role_id= db.Column(db.String)
+    user_id=db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
 class Blogs(db.Model):

@@ -67,4 +67,11 @@ hr{
 .confirm:hover{
     color: #000;
 }
+.quote-link{
+    text-decoration: none;
+    color: #000;
+}
 
+.quote-link:hover{
+    color: #f0f0f0
+}
