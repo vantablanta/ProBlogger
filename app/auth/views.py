@@ -37,8 +37,4 @@ def logout():
     return redirect(url_for("main_blueprint.home"))
 
 
-@auth_blueprint.route("/profile")
-def profile():
-    return render_template('profile.html')
-
 

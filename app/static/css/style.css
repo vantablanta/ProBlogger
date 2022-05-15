@@ -60,3 +60,11 @@ hr{
 .btn:hover{
     color: #f0f0f0;
 }
+.confirm{
+    text-decoration: none;
+}
+
+.confirm:hover{
+    color: #000;
+}
+
