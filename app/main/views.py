@@ -12,6 +12,7 @@ from PIL import Image
 @main_blueprint.route('/')
 def home():
     return render_template('index.html')
+
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
@@ -25,6 +26,11 @@ def save_picture(form_picture):
     i.save(picture_path)
     return picture_filename
 
+def blogs(id):
+    blogs = Blogs.query.all()
+    comments = Comments.query.filter_by(id).all()
+    print(blogs)
+    return render_template(blogs=blogs, comments=comments)
 
 @main_blueprint.route('/quotes')
 def quotes():
@@ -72,7 +78,6 @@ def updateprofile(name):
     return render_template('profile/updateprofile.html',form =form)
 
 
-
 @main_blueprint.route('/new-blog', methods=['POST','GET'])
 @login_required
 def new_blog():
@@ -84,18 +89,9 @@ def new_blog():
         user_id =  current_user._get_current_object().id
         blog = Blogs(heading=heading,body=body,user_id=user_id)
         blog.save()
-        # for subscriber in subscribers:
-        #     mail_message("New Blog Post","email/new_blog",subscriber.email,blog=blog)
         flash('You Posted a new Blog')
-        return redirect(url_for('main_blueprint.home'))
+        return redirect(url_for('main_blueprint.blogs'))
     return render_template('newblog.html', form = form, followers=followers)
-
-
-@main_blueprint.route('/blogs')
-def blogs():
-    # comments = Comments.query.filter_by(blog_id=id).all()
-    blog = Blogs.query_all()
-    return render_template('blogs.html', blog=blog)
 
 
 @main_blueprint.route('/blog/<blog_id>/update', methods = ['GET','POST'])
@@ -115,7 +111,6 @@ def updateblog(blog_id):
         form.title.data = blog.title
         form.content.data = blog.content
     return render_template('newblog.html', form = form)
-
 
 
 @main_blueprint.route('/comment/<blog_id>', methods = ['Post','GET'])
@@ -145,7 +140,6 @@ def delete_post(blog_id):
     blog.delete()
     flash("You have deleted your Blog succesfully!")
     return redirect(url_for('main.index'))
-
 
 @main_blueprint.route('/user/<string:username>')
 def user_posts(username):

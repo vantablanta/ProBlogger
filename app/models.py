@@ -14,7 +14,7 @@ class User(UserMixin, db.Model):
     bio = db.Column(db.String(255),default ='My default Bio')
     profile_pic_path = db.Column(db.String(150),default ='default.png')
     secure_password = db.Column(db.String, nullable=False)
-    blog=db.relationship('Blogs', backref='user')
+    blogs=db.relationship('Blogs', backref='user')
     comment=db.relationship('Comments', backref='user', lazy='dynamic')
 
     @property
@@ -44,9 +44,14 @@ class Blogs(db.Model):
     __tablename__ = 'blogs'
     id = db.Column(db.Integer, primary_key=True)
     heading = db.Column(db.String, nullable=False)
-    body = db.Column(db.String, nullable=False)
+    body = db.Column(db.Text, nullable=False)
     user_id=db.Column(db.Integer, db.ForeignKey('users.id'))  
-    comment = db.relationship('Comments', backref='blog', lazy='dynamic')
+    comments = db.relationship('Comments', backref='comments', lazy='dynamic')
+
+    def __init__(self, heading,  body, user_id):
+        self.heading = heading
+        self.body = body
+        self. user_id = user_id
 
     def save(self):
         db.session.add(self)
@@ -55,14 +60,6 @@ class Blogs(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-
-    def get_blog(id):
-        blog = Blogs.query.filter_by(id=id).first()
-
-        return blog
-
-    def __repr__(self):
-        return f'Blog {self.title}'
 
 class Comments(db.Model):
     __tablename__='comments'

@@ -5,12 +5,55 @@
       <div class="text-center fs-3">Blogs<span class="fs-1" style="color:#c1a57b;">.</span></div>
         <h3 class="top">Top Highlights</h3>
         <div class="row">
-          <div class="col-md-4">
-
+          <div class="col-md-8">
+            <div class="card-group col-md-12"> 
+              {% for blog in blogs %}
+              <div class="card border-info m-1" style="max-width: 25rem;">
+                  <div class="card-header w-100">{{blog['heading']}}</div>
+                  <div class="card-body">
+                      <p class="card-text">{{blog['body']}}</p>
+                  </div>
+                  <div class="row p-3">
+                      {%if current_user.is_authenticated%}
+                      <a class="col-md-4 col-sm-4" class="comment col-md-6" href="{{(url_for('main_blueprint.new_comment', pitch_id = pitch.id))}}">
+                          <i class="fa fa-comments" aria-hidden="true"></i>
+                      </a>
+                      {%else%}
+                      <i class="fa fa-comments col-md-4 col-sm-4" aria-hidden="true">
+                          <a class='pitch' href="{{(url_for('auth_blueprint.register'))}}"></a>
+                      </i>
+                      {%endif%}
+                      <i class="fa fa-thumbs-up col-md-4 col-sm-4" aria-hidden="true">
+                          <span class="votes">{{pitch['upvotes']}}</span>
+                      </i>
+                      <i class="fa fa-thumbs-down col-md-4 col-sm-4" aria-hidden="true">
+                          <span class="votes">{{pitch['downvotes']}}</span>
+                      </i>
+                  </div>
+                  <div class="p-3">
+                      {%if current_user.is_authenticated%}
+                      Comments:
+                      {{comments}}
+                          {%for comment in comments%}
+                          <div class="alert alert-secondary" role="alert">
+                              {{comment['body']}}
+                            </div>
+                          {%endfor%}
+                      {%endif%}
+                  </div>
+                  <div class="row p-3">
+                      {%if current_user.is_authenticated%}
+                      {%else%}
+                      <a class='pitch' href="{{(url_for('auth_blueprint.signup'))}}">Post A Pitch</a>
+                      {%endif%}
+                  </div>
+          
+              </div>
+              {{pitch['content']}}
+              {%endfor%}
           </div>
-          <div class="col-md-4">
-
           </div>
+
           <div class="col-md-4">
             <div class="d-flex justify-content-center align-items-center">
               <div class="card p-3">
