@@ -90,7 +90,7 @@ def new_blog():
         blog = Blogs(heading=heading,body=body,user_id=user_id)
         blog.save()
         flash('You Posted a new Blog')
-        return redirect(url_for('main_blueprint.blogs'))
+        return redirect(url_for('main_blueprint.home'))
     return render_template('newblog.html', form = form, followers=followers)
 
 
