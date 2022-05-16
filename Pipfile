@@ -13,6 +13,7 @@ flask-migrate = "*"
 psycopg2 = "*"
 psycopg2-binary = "*"
 flask-login = "*"
+pillow = "*"
 
 [dev-packages]
 

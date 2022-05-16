@@ -11,9 +11,11 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
+    bio = db.Column(db.String(255),default ='My default Bio')
+    profile_pic_path = db.Column(db.String(150),default ='default.png')
     secure_password = db.Column(db.String, nullable=False)
-    blog_id=db.relationship('Blogs', backref='user')
-    role=db.relationship('Roles', backref='user')
+    blog=db.relationship('Blogs', backref='user')
+    comment=db.relationship('Comments', backref='user', lazy='dynamic')
 
     @property
     def password(self):
@@ -26,14 +28,16 @@ class User(UserMixin, db.Model):
     def verify_password(self,password):
         return check_password_hash(self.secure_password,password) 
     
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
     def __repr__(self):
         return f"User('{self.name}')"
-
-class Roles(db.Model):
-    __tablename__ = 'role'
-    id = db.Column(db.Integer, primary_key=True)
-    role_id= db.Column(db.String)
-    user_id=db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
 class Blogs(db.Model):
@@ -41,5 +45,58 @@ class Blogs(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     heading = db.Column(db.String, nullable=False)
     body = db.Column(db.String, nullable=False)
-    user_id=db.Column(db.String, db.ForeignKey('users.id'))
-   
+    user_id=db.Column(db.Integer, db.ForeignKey('users.id'))  
+    comment = db.relationship('Comments', backref='blog', lazy='dynamic')
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def get_blog(id):
+        blog = Blogs.query.filter_by(id=id).first()
+
+        return blog
+
+    def __repr__(self):
+        return f'Blog {self.title}'
+
+class Comments(db.Model):
+    __tablename__='comments'
+    id = db.Column(db.Integer,primary_key = True)
+    comment = db.Column(db.String)
+    blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.remove(self)
+        db.session.commit()
+
+    def get_comment(id):
+        comment = Comments.query.all(id=id)
+        return comment
+
+
+    def __repr__(self):
+        return f'Comment {self.comment}'
+
+
+class Follower(db.Model):
+    __tablename__='follower'
+
+    id=db.Column(db.Integer,primary_key=True)
+    email = db.Column(db.String(255),unique=True,index=True)
+
+    def save_subscriber(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def __repr__(self):
+        return f'Follower {self.email}'
