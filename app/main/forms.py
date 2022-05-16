@@ -1,13 +1,13 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField,FileAllowed
-from wtforms import StringField,TextAreaField, SubmitField,ValidationError
+from wtforms import StringField,TextAreaField, SubmitField,ValidationError, EmailField
 from wtforms.validators import DataRequired,Email
 from flask_login import current_user
 from ..models import User
 
 class UpdateProfile(FlaskForm):
     username = StringField('Enter Your Username', validators=[DataRequired()])
-    email = StringField('Email Address', validators=[DataRequired(),Email()])
+    email = EmailField('Email Address', validators=[DataRequired(),Email()])
     bio = TextAreaField('Write a brief bio about you.',validators = [DataRequired()])
     profile_picture = FileField('profile picture', validators=[FileAllowed(['jpg','png'])])
     submit = SubmitField('Update')
@@ -23,6 +23,12 @@ class UpdateProfile(FlaskForm):
                 raise ValidationError("The username has already been taken")
 
 class CreatePost(FlaskForm):
-    title = StringField('Title',validators=[DataRequired()])
-    content = TextAreaField('Blog Content',validators=[DataRequired()])
+    heading = StringField('Title',validators=[DataRequired()])
+    body = TextAreaField('Blog Content',validators=[DataRequired()])
     submit = SubmitField('Post')
+
+class ContactForm(FlaskForm):
+    name = StringField('Enter Your Name', validators=[DataRequired()])
+    email = EmailField('Email Address', validators=[DataRequired(),Email()])
+    message = TextAreaField('Write your message.',validators = [DataRequired()])
+    submit = SubmitField('Update')
