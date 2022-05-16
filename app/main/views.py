@@ -91,11 +91,11 @@ def new_blog():
     return render_template('newblog.html', form = form, followers=followers)
 
 
-@main_blueprint.route('/blog/<id>')
-def blogs(id):
-    comments = Comments.query.filter_by(blog_id=id).all()
-    blogs = Blogs.query.get(id)
-    return render_template('blogs.html', blogs=blogs,comments=comments)
+@main_blueprint.route('/blogs')
+def blogs():
+    # comments = Comments.query.filter_by(blog_id=id).all()
+    blog = Blogs.query_all()
+    return render_template('blogs.html', blog=blog)
 
 
 @main_blueprint.route('/blog/<blog_id>/update', methods = ['GET','POST'])

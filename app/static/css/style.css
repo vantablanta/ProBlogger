@@ -75,3 +75,10 @@ hr{
 .quote-link:hover{
     color: #f0f0f0
 }
+
+/* BLOGS */
+.top{
+    text-decoration: underline;
+    text-decoration-color: #c1a57b;
+    text-underline-position: under;
+}
