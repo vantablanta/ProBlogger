@@ -17,18 +17,18 @@ class UserModelTest(unittest.TestCase):
 
 class BlogModelTest(unittest.TestCase):
     def setUp(self):
-        self.new_pitch = Blogs("Pitch Title","Pitch Body","User ID")
+        self.new_blog = Blogs("Blog Title","Blog Body","User ID")
 
     def test_instance(self):
-        self.assertTrue(isinstance(self.new_pitch, Blogs))
+        self.assertTrue(isinstance(self.new_blog, Blogs))
 
 
 class CommentModelTest(unittest.TestCase):
     def setUp(self):
-        self.new_pitch = Comments("User ID","Comment Body","Pitch ID")
+        self.new_comment = Comments("User ID","Comment Body","Pitch ID")
 
     def test_instance(self):
-        self.assertTrue(isinstance(self.new_pitch, Comments))
+        self.assertTrue(isinstance(self.new_comment, Comments))
 
    
 if __name__ == '__main__':
