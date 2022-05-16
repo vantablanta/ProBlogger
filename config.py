@@ -15,7 +15,7 @@ class ProdConfig(Config):
 
 class DevConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI  = os.getenv("DEV_SQLALCHEMY_DATABASE_URI").replace('postgres://', 'postgresql://')
+    SQLALCHEMY_DATABASE_URI  = os.getenv("DATABASE_URL").replace('postgres://', 'postgresql://')
 
 
 
