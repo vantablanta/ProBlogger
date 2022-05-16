@@ -3,20 +3,8 @@
 
 {%block body %}
 <div class="container">
-    <ul class="nav pt-5 justify-content-center">
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button"
-                aria-expanded="false">Blogs</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/quotes">Quotes</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/contact">Contact</a>
-        </li>
-    </ul>
+    {%include 'nav.html' %}
 </div>
-
 <div class="container-fluid row pt-3 mt-3">
     <div class="text-center fs-3">Quotes<span class="fs-1" style="color:#c1a57b;">.</span></div>
     <div class="col-md-3"></div>
