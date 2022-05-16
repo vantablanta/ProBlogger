@@ -31,4 +31,4 @@ class ContactForm(FlaskForm):
     name = StringField('Enter Your Name', validators=[DataRequired()])
     email = EmailField('Email Address', validators=[DataRequired(),Email()])
     message = TextAreaField('Write your message.',validators = [DataRequired()])
-    submit = SubmitField('Update')
+    submit = SubmitField('Submit')
