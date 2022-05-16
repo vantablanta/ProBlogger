@@ -11,7 +11,7 @@ from ..models import User
 def signup():
     form = SignupForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, password=form.password.data, role=form.role.data)
+        user = User(username=form.username.data, email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('auth_blueprint.login')) 
